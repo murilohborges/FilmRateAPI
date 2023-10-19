@@ -1,10 +1,11 @@
+require("express-async-errors");
+
 const express = require('express');
 
 const routes = require('./routes');
 
-require("express-async-errors");
 
-const AppError = require("./utils/AppError");
+const AppError = require("./utils/AppError.js");
 
 const app = express();
 
@@ -12,7 +13,7 @@ app.use(express.json());
 
 app.use(routes);
 
-app.use(( error, request, response, next) => {
+app.use(( error, request, response, next ) => {
 
   if(error instanceof AppError) {
     return response.status(error.statusCode).json({
@@ -21,7 +22,7 @@ app.use(( error, request, response, next) => {
     })
   }
 
-  console.log(error);
+  console.error(error);
 
   return response.status(500).json({
     status: "error",
