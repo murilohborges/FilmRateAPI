@@ -72,8 +72,6 @@ class NotesController{
     } else {
       notes = await knex("movie_notes").where({ user_id }).whereLike("title", `%${title}%`).orderBy("title");
     }
-
-    console.log(notes)
     
     const userTags = await knex("movie_tags").where({ user_id });
     const notesWithTags = notes.map(note => {
