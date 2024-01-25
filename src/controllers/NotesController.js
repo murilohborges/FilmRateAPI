@@ -68,7 +68,7 @@ class NotesController{
         "movie_notes.id",
         "movie_notes.title",
         "movie_notes.user_id",
-      ]).where("movie_notes.user_id", user_id).whereLike("title", `%${title}%`).whereIn("name", filterTags).innerJoin("movie_notes", "movie_notes.id", "movie_tags.note_id");
+      ]).where("movie_notes.user_id", user_id).whereLike("title", `%${title}%`).whereIn("name", filterTags).innerJoin("movie_notes", "movie_notes.id", "movie_tags.note_id").groupBy("notes.id").orderBy("notes.title");
 
     } else {
       notes = await knex("movie_notes").where({ user_id }).whereLike("title", `%${title}%`).orderBy("title");
